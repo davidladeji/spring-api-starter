@@ -1,4 +1,4 @@
-package com.codewithmosh.store;
+package com.dladeji.store;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
