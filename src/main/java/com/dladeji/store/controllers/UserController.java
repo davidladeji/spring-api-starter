@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dladeji.store.dtos.UserDto;
 import com.dladeji.store.entities.User;
+import com.dladeji.store.mappers.UserMapper;
 import com.dladeji.store.repositories.UserRepository;
 
 import lombok.AllArgsConstructor;
@@ -19,12 +20,13 @@ import lombok.AllArgsConstructor;
 public class UserController {
 
     private UserRepository userRepository;
+    private UserMapper userMapper;
     
     @GetMapping
     public Iterable<UserDto> getAllUsers() {
         return userRepository.findAll()
                 .stream()
-                .map(user -> new UserDto(user.getId(), user.getName(), user.getEmail()))
+                .map(userMapper::toDto)
                 .toList();
     }
 
@@ -35,8 +37,8 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
 
-        var userDto = new UserDto(user.getId(), user.getName(), user.getEmail());
-        return ResponseEntity.ok(userDto);
+
+        return ResponseEntity.ok(userMapper.toDto(user));
     }
     
 }
