@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import com.dladeji.store.dtos.RegisterUserRequest;
+import com.dladeji.store.dtos.UpdateUserRequest;
 import com.dladeji.store.dtos.UserDto;
 import com.dladeji.store.entities.User;
 import com.dladeji.store.mappers.UserMapper;
@@ -19,6 +22,8 @@ import com.dladeji.store.repositories.UserRepository;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @RestController
@@ -51,7 +56,31 @@ public class UserController {
     }
     
     @PostMapping
-    public UserDto createUser(@RequestBody UserDto data){
-        return data;
+    public ResponseEntity<UserDto> createUser(
+        @RequestBody RegisterUserRequest request,
+        UriComponentsBuilder uriBuilder
+        ){
+        var user = userMapper.toEntity(request);
+        userRepository.save(user);
+
+        var userDto = userMapper.toDto(user);
+        var uri = uriBuilder.path("/users/{id}").buildAndExpand(userDto.getId()).toUri();
+        return ResponseEntity.created(uri).body(userDto);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDto> updateUser(
+        @PathVariable Long id, 
+        @RequestBody UpdateUserRequest request
+        ) {
+        var user = userRepository.findById(id).orElse(null);
+        if (user == null)
+            return ResponseEntity.notFound().build();
+        
+        userMapper.update(request, user);
+        userRepository.save(user);
+
+        var userDto = userMapper.toDto(user);
+        return ResponseEntity.ok(userDto);
     }
 }
