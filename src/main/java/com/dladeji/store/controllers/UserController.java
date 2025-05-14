@@ -3,6 +3,7 @@ package com.dladeji.store.controllers;
 import java.util.Set;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.dladeji.store.dtos.ChangePasswordRequest;
 import com.dladeji.store.dtos.RegisterUserRequest;
 import com.dladeji.store.dtos.UpdateUserRequest;
 import com.dladeji.store.dtos.UserDto;
@@ -95,4 +97,23 @@ public class UserController {
         userRepository.delete(user);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{id}/change-password")
+    public ResponseEntity<Void> updatepassword(
+        @PathVariable Long id,
+        @RequestBody ChangePasswordRequest request
+        ) {
+        var user = userRepository.findById(id).orElse(null);
+
+        if (user == null)
+            return ResponseEntity.notFound().build();
+        
+        if (!user.getPassword().equals(request.getOldPassword()))
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        user.setPassword(request.getNewPassword());
+        userRepository.save(user);
+        return ResponseEntity.noContent().build();
+    }
+    
 }
