@@ -23,6 +23,7 @@ import com.dladeji.store.entities.User;
 import com.dladeji.store.mappers.UserMapper;
 import com.dladeji.store.repositories.UserRepository;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -60,7 +61,7 @@ public class UserController {
     
     @PostMapping
     public ResponseEntity<UserDto> createUser(
-        @RequestBody RegisterUserRequest request,
+        @Valid @RequestBody RegisterUserRequest request,
         UriComponentsBuilder uriBuilder
         ){
         var user = userMapper.toEntity(request);
