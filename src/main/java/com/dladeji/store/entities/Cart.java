@@ -36,4 +36,12 @@ public class Cart {
 
     @OneToMany(mappedBy = "cart")
     private Set<CartItem> items = new LinkedHashSet<>();
+
+    public BigDecimal getTotalPrice(){
+        BigDecimal price = BigDecimal.ZERO;
+        for (CartItem item : items) {
+            price = price.add(item.getTotalPrice());
+        }
+        return price;
+    }
 }
