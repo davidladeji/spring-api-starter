@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.dladeji.store.entities.CartItem;
 
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
-    boolean existsByProductId(Long id);
     Optional<CartItem> findByProductId(Long id);
 }

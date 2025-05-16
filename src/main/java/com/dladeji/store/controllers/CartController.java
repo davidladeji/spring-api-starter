@@ -1,8 +1,8 @@
 package com.dladeji.store.controllers;
 
-import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -59,21 +59,20 @@ public class CartController {
         if (product == null)
             return ResponseEntity.badRequest().build();
         
-
-        if (cartItemRepository.existsByProductId(productId)){
-            var cartItem = cartItemRepository.findByProductId(productId).orElse(null);
+        var cartItem = cartItemRepository.findByProductId(productId).orElse(null);
+        if (cartItem != null){
             cartItem.setQuantity(cartItem.getQuantity()+1);
-            cartItemRepository.save(cartItem);
-            return ResponseEntity.ok().body(cartMapper.toDto(cartItem));
+        } else {
+            cartItem = new CartItem();
+            cartItem.setProduct(product);
+            cartItem.setCart(cart);
+            cartItem.setQuantity(1);
         }
 
-        var cartItem = new CartItem();
-        cartItem.setProduct(product);
-        cartItem.setCart(cart);
-        cartItem.setQuantity(1);
         cartItemRepository.save(cartItem);
+        var cartItemDto = cartMapper.toDto(cartItem);
 
-        return ResponseEntity.ok().body(cartMapper.toDto(cartItem));
+        return ResponseEntity.status(HttpStatus.CREATED).body(cartItemDto);
     }
     
 }
