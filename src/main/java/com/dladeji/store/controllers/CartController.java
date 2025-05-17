@@ -9,6 +9,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.dladeji.store.dtos.AddCartItemRequest;
 import com.dladeji.store.dtos.CartDto;
+import com.dladeji.store.dtos.UpdateCartItemDto;
 import com.dladeji.store.entities.Cart;
 import com.dladeji.store.entities.CartItem;
 import com.dladeji.store.mappers.CartMapper;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -88,6 +91,39 @@ public class CartController {
             
         var cartDto = cartMapper.toDto(cart);
         return ResponseEntity.ok().body(cartDto);
+    }
+
+    @PutMapping("/{cartId}/items/{id}")
+    public ResponseEntity<?> updateCartItem(
+        @PathVariable UUID cartId,
+        @PathVariable Long id, 
+        @RequestBody UpdateCartItemDto request
+    ) {
+
+        var cart = cartRepository.findById(cartId).orElse(null);
+        if (cart == null)
+            return ResponseEntity.notFound().build();
+
+        var product = productRepository.findById(id).orElse(null);
+        if (product == null)
+            return ResponseEntity.notFound().build();
+
+        var quantity = request.getQuantity();
+        if (quantity < 1 || quantity > 100)
+            return ResponseEntity.badRequest().build();
+
+        CartItem cartItem = null;
+        for (CartItem item: cart.getItems()){
+            if (product.getName().equals(item.getProduct().getName())){
+               cartItem = item;
+               break;
+            } 
+        }
+
+        cartMapper.updateCartItem(request, cartItem);
+        cartItemRepository.save(cartItem);
+        var cartItemDto = cartMapper.toDto(cartItem);
+        return ResponseEntity.ok(cartItemDto);
     }
     
     
