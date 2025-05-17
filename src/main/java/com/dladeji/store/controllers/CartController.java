@@ -121,7 +121,7 @@ public class CartController {
         @PathVariable UUID cartId,
         @PathVariable Long productId
     ){
-        // Validate id args
+        // Validate cart
         var cart = cartRepository.findById(cartId).orElse(null);
         if (cart == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
@@ -130,6 +130,23 @@ public class CartController {
         } 
 
         cart.removeItem(productId);
+        cartRepository.save(cart);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{cartId}/items")
+    public ResponseEntity<?> clearCart(
+        @PathVariable UUID cartId
+    ){
+         // Validate cart
+        var cart = cartRepository.findById(cartId).orElse(null);
+        if (cart == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                Map.of("error", "Cart not found.")
+            );
+        }
+
+        cart.clearCart();
         cartRepository.save(cart);
         return ResponseEntity.noContent().build();
     }
