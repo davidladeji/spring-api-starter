@@ -67,20 +67,9 @@ public class CartController {
         if (product == null)
             return ResponseEntity.badRequest().build();
         
-        var cartItem = cartItemRepository.findByProductId(productId).orElse(null);
-        if (cartItem != null){
-            cartItem.setQuantity(cartItem.getQuantity()+1);
-        } else {
-            cartItem = new CartItem();
-            cartItem.setProduct(product);
-            cartItem.setCart(cart);
-            cartItem.setQuantity(1);
-        }
-
+        var cartItem = cart.addItem(product);
         cartItemRepository.save(cartItem);
-        var cartItemDto = cartMapper.toDto(cartItem);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(cartItemDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(cartMapper.toDto(cartItem));
     }
 
     @GetMapping("/{cartId}")
@@ -107,13 +96,6 @@ public class CartController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 Map.of("error", "Cart not found.")
             );
-        } 
-
-        var product = productRepository.findById(productId).orElse(null);
-        if (product == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                Map.of("error", "Product not found.")
-            );
         }
 
         var quantity = request.getQuantity();
@@ -123,10 +105,7 @@ public class CartController {
             );
         }
 
-        var cartItem = cart.getItems().stream()
-                .filter(item -> item.getProduct().getId().equals(productId))
-                .findFirst()
-                .orElse(null);
+        var cartItem = cart.getItem(productId);
 
         if (cartItem == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
@@ -136,8 +115,7 @@ public class CartController {
 
         cartItem.setQuantity(quantity);
         cartItemRepository.save(cartItem);
-        var cartItemDto = cartMapper.toDto(cartItem);
-        return ResponseEntity.ok(cartItemDto);
+        return ResponseEntity.ok(cartMapper.toDto(cartItem));
     }
 
     @DeleteMapping("/{cartId}/items/{productId}")
@@ -153,28 +131,8 @@ public class CartController {
             );
         } 
 
-        var product = productRepository.findById(productId).orElse(null);
-        if (product == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                Map.of("error", "Product not found.")
-            );
-        }
-
-        // Validate Cart item
-        var cartItem = cart.getItems().stream()
-                .filter(item -> item.getProduct().getId().equals(productId))
-                .findFirst()
-                .orElse(null);
-
-        if (cartItem == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                Map.of("error", "Product was not found in the cart.")
-            );
-        }
-
-        cartItemRepository.delete(cartItem);
-        
-        
+        cart.removeItem(productId);
+        cartRepository.save(cart);
         return ResponseEntity.noContent().build();
     }
     
