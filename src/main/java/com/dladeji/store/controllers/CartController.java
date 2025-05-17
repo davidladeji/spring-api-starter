@@ -1,5 +1,6 @@
 package com.dladeji.store.controllers;
 
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
@@ -96,31 +97,41 @@ public class CartController {
     @PutMapping("/{cartId}/items/{id}")
     public ResponseEntity<?> updateCartItem(
         @PathVariable UUID cartId,
-        @PathVariable Long id, 
+        @PathVariable Long productId, 
         @RequestBody UpdateCartItemDto request
     ) {
 
         var cart = cartRepository.findById(cartId).orElse(null);
-        if (cart == null)
-            return ResponseEntity.notFound().build();
+        if (cart == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                Map.of("error", "Cart not found.")
+            );
+        }
+            
 
-        var product = productRepository.findById(id).orElse(null);
-        if (product == null)
-            return ResponseEntity.notFound().build();
+        var product = productRepository.findById(productId).orElse(null);
+        if (product == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                Map.of("error", "Product not found.")
+            );
+        }
 
         var quantity = request.getQuantity();
         if (quantity < 1 || quantity > 100)
             return ResponseEntity.badRequest().build();
 
-        CartItem cartItem = null;
-        for (CartItem item: cart.getItems()){
-            if (product.getName().equals(item.getProduct().getName())){
-               cartItem = item;
-               break;
-            } 
+        var cartItem = cart.getItems().stream()
+                .filter(item -> item.getProduct().getId().equals(productId))
+                .findFirst()
+                .orElse(null);
+
+        if (cartItem == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                Map.of("error", "Product was not found in the cart.")
+            );
         }
 
-        cartMapper.updateCartItem(request, cartItem);
+        cartItem.setQuantity(quantity);
         cartItemRepository.save(cartItem);
         var cartItemDto = cartMapper.toDto(cartItem);
         return ResponseEntity.ok(cartItemDto);
