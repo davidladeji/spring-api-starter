@@ -12,7 +12,6 @@ import com.dladeji.store.dtos.AddCartItemRequest;
 import com.dladeji.store.dtos.CartDto;
 import com.dladeji.store.dtos.UpdateCartItemDto;
 import com.dladeji.store.entities.Cart;
-import com.dladeji.store.entities.CartItem;
 import com.dladeji.store.mappers.CartMapper;
 import com.dladeji.store.repositories.CartItemRepository;
 import com.dladeji.store.repositories.CartRepository;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 
 
