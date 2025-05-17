@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -94,20 +95,19 @@ public class CartController {
         return ResponseEntity.ok().body(cartDto);
     }
 
-    @PutMapping("/{cartId}/items/{id}")
+    @PutMapping("/{cartId}/items/{productId}")
     public ResponseEntity<?> updateCartItem(
         @PathVariable UUID cartId,
         @PathVariable Long productId, 
         @RequestBody UpdateCartItemDto request
     ) {
-
+        // Validate id args
         var cart = cartRepository.findById(cartId).orElse(null);
         if (cart == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 Map.of("error", "Cart not found.")
             );
-        }
-            
+        } 
 
         var product = productRepository.findById(productId).orElse(null);
         if (product == null){
@@ -117,8 +117,11 @@ public class CartController {
         }
 
         var quantity = request.getQuantity();
-        if (quantity < 1 || quantity > 100)
-            return ResponseEntity.badRequest().build();
+        if (quantity < 1 || quantity > 100){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                Map.of("error", "Quantity needs to be between 1 and 100")
+            );
+        }
 
         var cartItem = cart.getItems().stream()
                 .filter(item -> item.getProduct().getId().equals(productId))
@@ -135,6 +138,44 @@ public class CartController {
         cartItemRepository.save(cartItem);
         var cartItemDto = cartMapper.toDto(cartItem);
         return ResponseEntity.ok(cartItemDto);
+    }
+
+    @DeleteMapping("/{cartId}/items/{productId}")
+    public ResponseEntity<?> removeProductFromCart(
+        @PathVariable UUID cartId,
+        @PathVariable Long productId
+    ){
+        // Validate id args
+        var cart = cartRepository.findById(cartId).orElse(null);
+        if (cart == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                Map.of("error", "Cart not found.")
+            );
+        } 
+
+        var product = productRepository.findById(productId).orElse(null);
+        if (product == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                Map.of("error", "Product not found.")
+            );
+        }
+
+        // Validate Cart item
+        var cartItem = cart.getItems().stream()
+                .filter(item -> item.getProduct().getId().equals(productId))
+                .findFirst()
+                .orElse(null);
+
+        if (cartItem == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                Map.of("error", "Product was not found in the cart.")
+            );
+        }
+
+        cartItemRepository.delete(cartItem);
+        
+        
+        return ResponseEntity.noContent().build();
     }
     
     

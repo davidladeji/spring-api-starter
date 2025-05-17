@@ -1,7 +1,6 @@
 package com.dladeji.store.entities;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
