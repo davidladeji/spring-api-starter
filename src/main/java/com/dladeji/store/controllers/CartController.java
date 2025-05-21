@@ -14,6 +14,9 @@ import com.dladeji.store.exceptions.CartNotFoundException;
 import com.dladeji.store.exceptions.ProductNotFoundException;
 import com.dladeji.store.services.CartService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +34,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/carts")
+@Tag(name = "Carts")
 public class CartController {
     private CartService cartService;
 
@@ -45,7 +49,9 @@ public class CartController {
     }
 
     @PostMapping("/{cartId}/items")
+    @Operation(summary = "Adds a product to the cart")
     public ResponseEntity<?> addProductToCart(
+        @Parameter(description = "The id of the cart")
         @PathVariable UUID cartId,
         @RequestBody AddCartItemRequest request
     ) {
