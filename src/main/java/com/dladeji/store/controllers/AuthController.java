@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dladeji.store.config.JwtConfig;
 import com.dladeji.store.dtos.JwtResponse;
 import com.dladeji.store.dtos.LoginUserDto;
 import com.dladeji.store.dtos.UserDto;
@@ -35,6 +36,7 @@ public class AuthController {
     private JwtService jwtService;
     private UserRepository userRepository;
     private UserMapper userMapper;
+    private JwtConfig jwtConfig;
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(
@@ -54,7 +56,7 @@ public class AuthController {
         var cookie = new Cookie("refreshToken", refreshToken);
         cookie.setHttpOnly(true);
         cookie.setPath("/auth/refresh");
-        cookie.setMaxAge(604800); // 7 days
+        cookie.setMaxAge(jwtConfig.getRefreshTokenExpiration()); // 7 days
         cookie.setSecure(true);
 
         response.addCookie(cookie);
