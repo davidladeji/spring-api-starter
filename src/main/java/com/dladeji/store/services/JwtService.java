@@ -5,6 +5,8 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.dladeji.store.entities.User;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -17,12 +19,14 @@ public class JwtService {
     private final long tokenExpiration = 86400; // 1 day in seconds
 
 
-    public String generateToken(String email) {
+    public String generateToken(User user) {
         return Jwts.builder()
-            .subject(email)
+            .subject(user.getId().toString())
             .issuedAt(new Date())
             .expiration(new Date(System.currentTimeMillis() + 1000 * tokenExpiration))
             .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
+            .claim("name", user.getEmail())
+            .claim("email", user.getEmail())
             .compact();
     }
 
@@ -38,9 +42,9 @@ public class JwtService {
         } 
     }
 
-    public String getEmailFromToken(String token){
+    public Long getUserIdFromToken(String token){
         var claims = getClaims(token);
-        return claims.getSubject();
+        return Long.valueOf(claims.getSubject());
     }
 
     public Claims getClaims(String token){
