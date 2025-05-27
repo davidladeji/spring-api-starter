@@ -16,10 +16,20 @@ import io.jsonwebtoken.security.Keys;
 public class JwtService {
     @Value("${spring.jwt.secret}")
     private String secret;
-    private final long tokenExpiration = 86400; // 1 day in seconds
 
+    public String generateAccessToken(User user) {
+        final long tokenExpiration = 300;
 
-    public String generateToken(User user) {
+        return generateToken(user, tokenExpiration);
+    }
+
+    public String generateRefreshToken(User user) {
+        final long tokenExpiration = 604800;
+
+        return generateToken(user, tokenExpiration);
+    }
+
+    private String generateToken(User user, long tokenExpiration) {
         return Jwts.builder()
             .subject(user.getId().toString())
             .issuedAt(new Date())
