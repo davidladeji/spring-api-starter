@@ -2,6 +2,7 @@ package com.dladeji.store.services;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Jwts;
@@ -9,7 +10,11 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtService {
+    @Value("${spring.jwa.secret}")
+    private String secret;
     private final long tokenExpiration = 86400; // 1 day in seconds
+
+
     public String generateToken(String email) {
         return Jwts.builder()
             .subject(email)

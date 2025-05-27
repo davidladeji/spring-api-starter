@@ -7,3 +7,5 @@ spring:
     password: L1ftOff$
   jpa:
     show-sql: true
+  jwt:
+    secret: "secret"
