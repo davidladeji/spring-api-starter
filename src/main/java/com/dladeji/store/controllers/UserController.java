@@ -43,7 +43,7 @@ public class UserController {
     public Iterable<UserDto> getAllUsers(
         @RequestParam(required = false, defaultValue = "", name = "sort") String sortBy
     ) {
-        if (    !Set.of("name", "email").contains(sortBy)) 
+        if (!Set.of("name", "email").contains(sortBy)) 
             sortBy = "name";
         return userRepository.findAll(Sort.by(sortBy))
                 .stream()
