@@ -10,7 +10,7 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtService {
-    @Value("${spring.jwa.secret}")
+    @Value("${spring.jwt.secret}")
     private String secret;
     private final long tokenExpiration = 86400; // 1 day in seconds
 
@@ -20,7 +20,7 @@ public class JwtService {
             .subject(email)
             .issuedAt(new Date())
             .expiration(new Date(System.currentTimeMillis() + 1000 * tokenExpiration))
-            .signWith(Keys.hmacShaKeyFor("secret".getBytes()))
+            .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
             .compact();
     }
 }
