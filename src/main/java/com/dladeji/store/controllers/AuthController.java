@@ -42,6 +42,8 @@ public class AuthController {
 
     @PostMapping("/validate")
     public boolean validate(@RequestHeader("Authorization") String authHeader) {
+        System.out.println("Validate called");
+        // This is done because its standard to pass the token with "Bearer " preceding
         var token = authHeader.replace("Bearer ", "");
         return jwtService.validateToken(token);
     }
