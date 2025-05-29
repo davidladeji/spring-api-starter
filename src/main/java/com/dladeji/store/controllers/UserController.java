@@ -20,6 +20,7 @@ import com.dladeji.store.dtos.ChangePasswordRequest;
 import com.dladeji.store.dtos.RegisterUserRequest;
 import com.dladeji.store.dtos.UpdateUserRequest;
 import com.dladeji.store.dtos.UserDto;
+import com.dladeji.store.entities.Role;
 import com.dladeji.store.mappers.UserMapper;
 import com.dladeji.store.repositories.UserRepository;
 
@@ -74,6 +75,7 @@ public class UserController {
 
         var user = userMapper.toEntity(request);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.USER);
         userRepository.save(user);
 
         var userDto = userMapper.toDto(user);
