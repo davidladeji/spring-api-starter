@@ -5,7 +5,6 @@ import java.util.Date;
 import org.springframework.stereotype.Service;
 
 import com.dladeji.store.config.JwtConfig;
-import com.dladeji.store.entities.Role;
 import com.dladeji.store.entities.User;
 
 import io.jsonwebtoken.Claims;
@@ -18,45 +17,34 @@ import lombok.AllArgsConstructor;
 public class JwtService {
     private final JwtConfig jwtConfig;
 
-    public String generateAccessToken(User user) {
+    public Jwt parse(String token){
+        try {
+            var claims = getClaims(token);
+            return new Jwt(claims, jwtConfig.getSecretKey());
+        } catch (JwtException e){
+            return null;
+        }
+    }
+
+    public Jwt generateAccessToken(User user) {
         return generateToken(user, jwtConfig.getAccessTokenExpiration());
     }
 
-    public String generateRefreshToken(User user) {
+    public Jwt generateRefreshToken(User user) {
         return generateToken(user, jwtConfig.getRefreshTokenExpiration());
     }
 
-    private String generateToken(User user, long tokenExpiration) {
-        return Jwts.builder()
+    private Jwt generateToken(User user, long tokenExpiration) {
+        var claims = Jwts.claims()
             .subject(user.getId().toString())
+            .add("email", user.getEmail())
+            .add("name", user.getName())
+            .add("role", user.getRole())
             .issuedAt(new Date())
             .expiration(new Date(System.currentTimeMillis() + 1000 * tokenExpiration))
-            .signWith(jwtConfig.getSecretKey())
-            .claim("name", user.getName())
-            .claim("email", user.getEmail())
-            .claim("role", user.getRole())
-            .compact();
-    }
+            .build();
 
-    public boolean validateToken(String token) {
-        try {
-            var claims = getClaims(token);
-
-            return claims.getExpiration().after(new Date());
-        } 
-        
-        catch (JwtException ex) {
-            return false;
-        } 
-    }
-
-    public Long getUserIdFromToken(String token){
-        var claims = getClaims(token);
-        return Long.valueOf(claims.getSubject());
-    }
-
-     public Role getRoleFromToken(String token){
-        return Role.valueOf(getClaims(token).get("role", String.class));
+        return new Jwt(claims, jwtConfig.getSecretKey());
     }
 
     public Claims getClaims(String token){
