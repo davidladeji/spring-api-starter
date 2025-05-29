@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.stereotype.Service;
 
 import com.dladeji.store.config.JwtConfig;
+import com.dladeji.store.entities.Role;
 import com.dladeji.store.entities.User;
 
 import io.jsonwebtoken.Claims;
@@ -52,6 +53,10 @@ public class JwtService {
     public Long getUserIdFromToken(String token){
         var claims = getClaims(token);
         return Long.valueOf(claims.getSubject());
+    }
+
+     public Role getRoleFromToken(String token){
+        return Role.valueOf(getClaims(token).get("role", String.class));
     }
 
     public Claims getClaims(String token){
