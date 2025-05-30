@@ -9,9 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.dladeji.store.dtos.AddCartItemRequest;
+import com.dladeji.store.dtos.CartDto;
 import com.dladeji.store.dtos.UpdateCartItemDto;
+import com.dladeji.store.dtos.UserDto;
 import com.dladeji.store.exceptions.CartNotFoundException;
 import com.dladeji.store.exceptions.ProductNotFoundException;
+import com.dladeji.store.mappers.CartMapper;
+import com.dladeji.store.repositories.CartRepository;
 import com.dladeji.store.services.CartService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,6 +31,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -37,6 +43,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 @Tag(name = "Carts")
 public class CartController {
     private CartService cartService;
+    private CartRepository cartRepository;
+    private CartMapper cartMapper;
+
+    @GetMapping
+    public Iterable<CartDto> getAllCarts() {
+        return cartRepository.findAll()
+                .stream()
+                .map(cartMapper::toDto)
+                .toList();
+    }
+    
 
     @PostMapping
     public ResponseEntity<?> createCart(

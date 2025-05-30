@@ -53,6 +53,14 @@ public class CartService {
         return cartMapper.toDto(cart);
     }
 
+    public Cart getCartObj(UUID cartId){
+        var cart = cartRepository.findById(cartId).orElse(null);
+        if (cart == null)
+            throw new CartNotFoundException();
+            
+        return cart;
+    }
+
     public CartItemDto updateCartItem(
         UUID cartId, 
         Long productId,
