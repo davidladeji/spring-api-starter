@@ -13,6 +13,8 @@ import com.dladeji.store.dtos.OrderDto;
 import com.dladeji.store.entities.Order;
 import com.dladeji.store.entities.OrderStatus;
 import com.dladeji.store.exceptions.CartIsEmptyException;
+import com.dladeji.store.exceptions.OrderNotFoundException;
+import com.dladeji.store.exceptions.UnauthorizedUserException;
 import com.dladeji.store.mappers.OrderMapper;
 import com.dladeji.store.repositories.OrderRepository;
 import com.dladeji.store.repositories.UserRepository;
@@ -25,7 +27,6 @@ public class OrderService {
     private CartService cartService;
     private OrderRepository orderRepository;
     private OrderMapper orderMapper;
-    private UserRepository userRepository;
     private AuthService authService;
 
     public OrderCheckoutDto checkout(UUID cartId){
@@ -34,9 +35,7 @@ public class OrderService {
         if (cart.getItems().isEmpty())
             throw new CartIsEmptyException();
 
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        var userId = (Long) authentication.getPrincipal();
-        var user = userRepository.findById(userId).orElseThrow();
+        var user = authService.getCurrentUser();
 
         // Create Order
         var order = new Order();
@@ -64,5 +63,19 @@ public class OrderService {
         });
 
         return userOrders;
+    }
+
+    public OrderDto getOrder(Long orderId){
+        var user = authService.getCurrentUser();
+
+        var order = orderRepository.findById(orderId).orElse(null);
+
+        if (order == null)
+            throw new OrderNotFoundException();
+
+        if (order.getUser().getId() != user.getId())
+            throw new UnauthorizedUserException();
+
+        return orderMapper.toDto(order);
     }
 }

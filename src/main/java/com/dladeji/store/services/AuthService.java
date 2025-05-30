@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 import com.dladeji.store.entities.User;
 import com.dladeji.store.repositories.UserRepository;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class AuthService {
     private UserRepository userRepository;
     
