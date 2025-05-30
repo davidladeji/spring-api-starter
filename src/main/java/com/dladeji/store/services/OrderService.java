@@ -26,6 +26,7 @@ public class OrderService {
     private OrderRepository orderRepository;
     private OrderMapper orderMapper;
     private UserRepository userRepository;
+    private AuthService authService;
 
     public OrderCheckoutDto checkout(UUID cartId){
         var cart = cartService.getCartObj(cartId);
@@ -37,16 +38,16 @@ public class OrderService {
         var userId = (Long) authentication.getPrincipal();
         var user = userRepository.findById(userId).orElseThrow();
 
-        // Need to create an order
+        // Create Order
         var order = new Order();
         order.setUser(user);
         order.setCreatedAt(LocalDateTime.now());
         order.setStatus(OrderStatus.PENDING);
         order.setTotalPrice(cart.getTotalPrice());
         order.addItems(cart.getItems());
-        // Save it
+        // Save
         orderRepository.save(order);
-        // Clear the cart
+        // Clear cart
         cartService.clearCart(cartId);
 
         return new OrderCheckoutDto(order.getId());
@@ -54,11 +55,9 @@ public class OrderService {
 
     public List<OrderDto> getOrdersByUser(){
         // Get logged in user
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        var userId = (Long) authentication.getPrincipal();
-        // var user = userRepository.findById(userId).orElseThrow();
+        var user = authService.getCurrentUser();
 
-        var orders = orderRepository.findByUserId(userId);
+        var orders = orderRepository.findByUser(user);
         List<OrderDto> userOrders = new ArrayList<>();
         orders.forEach(order -> {
             userOrders.add(orderMapper.toDto(order));

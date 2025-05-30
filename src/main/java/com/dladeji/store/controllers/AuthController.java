@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +18,7 @@ import com.dladeji.store.dtos.LoginUserDto;
 import com.dladeji.store.dtos.UserDto;
 import com.dladeji.store.mappers.UserMapper;
 import com.dladeji.store.repositories.UserRepository;
+import com.dladeji.store.services.AuthService;
 import com.dladeji.store.services.JwtService;
 
 import jakarta.servlet.http.Cookie;
@@ -35,6 +35,7 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     private JwtService jwtService;
     private UserRepository userRepository;
+    private AuthService authService;
     private UserMapper userMapper;
     private JwtConfig jwtConfig;
 
@@ -80,10 +81,8 @@ public class AuthController {
 
     @GetMapping("/me")
     public ResponseEntity<UserDto> me() {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        var userId = (Long) authentication.getPrincipal();
+        var user = authService.getCurrentUser();
         
-        var user = userRepository.findById(userId).orElse(null);
         if (user == null)
             return ResponseEntity.notFound().build();
         

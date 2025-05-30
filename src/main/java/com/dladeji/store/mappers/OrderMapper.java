@@ -13,14 +13,11 @@ import com.dladeji.store.entities.Product;
 
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
-    // @Mapping(target = "orderId", source = "order.id")
-    // OrderCheckoutDto toCheckoutDto(Order order);
 
     OrderDto toDto(Order order);
     Order toEntity(OrderDto orderDto);
 
     OrderItemDto toDto(OrderItem orderItem);
-    OrderItem toEntity(OrderItem orderItemDto);
 
     ProductOrderDto toDto(Product product);
 }
