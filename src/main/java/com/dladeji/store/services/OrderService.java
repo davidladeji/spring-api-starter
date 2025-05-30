@@ -1,18 +1,19 @@
 package com.dladeji.store.services;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.dladeji.store.dtos.OrderCheckoutDto;
 import com.dladeji.store.dtos.OrderDto;
 import com.dladeji.store.entities.Order;
 import com.dladeji.store.entities.OrderStatus;
 import com.dladeji.store.exceptions.CartIsEmptyException;
-import com.dladeji.store.exceptions.CartNotFoundException;
 import com.dladeji.store.mappers.OrderMapper;
-import com.dladeji.store.repositories.CartRepository;
 import com.dladeji.store.repositories.OrderRepository;
 import com.dladeji.store.repositories.UserRepository;
 
@@ -26,7 +27,7 @@ public class OrderService {
     private OrderMapper orderMapper;
     private UserRepository userRepository;
 
-    public OrderDto checkout(UUID cartId){
+    public OrderCheckoutDto checkout(UUID cartId){
         var cart = cartService.getCartObj(cartId);
 
         if (cart.getItems().isEmpty())
@@ -46,8 +47,23 @@ public class OrderService {
         // Save it
         orderRepository.save(order);
         // Clear the cart
-        cartService.clearCart(cartId);;
+        cartService.clearCart(cartId);
 
-        return orderMapper.toDto(order);
+        return new OrderCheckoutDto(order.getId());
+    }
+
+    public List<OrderDto> getOrdersByUser(){
+        // Get logged in user
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        var userId = (Long) authentication.getPrincipal();
+        // var user = userRepository.findById(userId).orElseThrow();
+
+        var orders = orderRepository.findByUserId(userId);
+        List<OrderDto> userOrders = new ArrayList<>();
+        orders.forEach(order -> {
+            userOrders.add(orderMapper.toDto(order));
+        });
+
+        return userOrders;
     }
 }

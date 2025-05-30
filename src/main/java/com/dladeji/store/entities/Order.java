@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -34,7 +35,7 @@ public class Order {
     @Column(name = "id")
     private Long id;
 
-    @OneToMany(mappedBy = "order", orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST ,orphanRemoval = true)
     private Set<OrderItem> items = new LinkedHashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
