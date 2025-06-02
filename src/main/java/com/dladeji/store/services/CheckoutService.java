@@ -9,7 +9,10 @@ import com.dladeji.store.entities.Order;
 import com.dladeji.store.exceptions.CartIsEmptyException;
 import com.dladeji.store.repositories.OrderRepository;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class CheckoutService {
     private CartService cartService;
     private AuthService authService;

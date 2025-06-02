@@ -10,8 +10,10 @@ import com.dladeji.store.dtos.OrderCheckoutDto;
 import com.dladeji.store.services.CheckoutService;
 
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 
 @RestController
+@AllArgsConstructor
 public class CheckoutController {
     private CheckoutService checkoutService;
     
