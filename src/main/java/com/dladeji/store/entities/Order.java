@@ -52,22 +52,17 @@ public class Order {
     @Column(name = "total_price")
     private BigDecimal totalPrice;
 
-    public void addItems(Set<CartItem> cartItems){
-        try {
-            cartItems.forEach((item) -> {
-                // Consider a builder class here
-                var orderItem = new OrderItem();
-                orderItem.setOrder(this);
-                orderItem.setProduct(item.getProduct());
-                orderItem.setUnitPrice(orderItem.getProduct().getPrice());
-                orderItem.setQuantity(item.getQuantity());
-                orderItem.setTotalPrice(item.getTotalPrice());
-                this.items.add(orderItem);
-            });
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-        
+    public static Order fromCart(Cart cart, User user){
+        var order = new Order();
+        order.setUser(user);
+        order.setStatus(OrderStatus.PENDING);
+        order.setTotalPrice(cart.getTotalPrice());
+
+        cart.getItems().forEach((item) -> {
+            var orderItem = new OrderItem(order, item.getProduct(), item.getQuantity(), item.getTotalPrice(), item.getProduct().getPrice());
+            order.items.add(orderItem);
+        });
+        return order;
     }
 
 }

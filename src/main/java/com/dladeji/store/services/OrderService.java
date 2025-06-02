@@ -32,19 +32,11 @@ public class OrderService {
 
         if (cart.getItems().isEmpty())
             throw new CartIsEmptyException();
-
         var user = authService.getCurrentUser();
 
-        // Create Order
-        var order = new Order();
-        order.setUser(user);
-        order.setCreatedAt(LocalDateTime.now());
-        order.setStatus(OrderStatus.PENDING);
-        order.setTotalPrice(cart.getTotalPrice());
-        order.addItems(cart.getItems());
-        // Save
+        
+        var order = Order.fromCart(cart, user);
         orderRepository.save(order);
-        // Clear cart
         cartService.clearCart(cartId);
 
         return new OrderCheckoutDto(order.getId());
