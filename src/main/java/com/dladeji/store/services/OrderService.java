@@ -23,7 +23,7 @@ public class OrderService {
     public List<OrderDto> getOrdersByUser(){
         var user = authService.getCurrentUser();
 
-        var orders = orderRepository.findByUser(user);
+        var orders = orderRepository.getAllByUser(user);
         List<OrderDto> userOrders = new ArrayList<>();
         orders.forEach(order -> {
             userOrders.add(orderMapper.toDto(order));
@@ -34,13 +34,12 @@ public class OrderService {
 
     public OrderDto getOrder(Long orderId){
         var user = authService.getCurrentUser();
-
-        var order = orderRepository.findById(orderId).orElse(null);
+        var order = orderRepository.getOrderWithItems(orderId).orElse(null);
 
         if (order == null)
             throw new OrderNotFoundException();
 
-        if (order.getUser().getId() != user.getId())
+        if (!order.isPlacedBy(user))
             throw new UnauthorizedUserException();
 
         return orderMapper.toDto(order);

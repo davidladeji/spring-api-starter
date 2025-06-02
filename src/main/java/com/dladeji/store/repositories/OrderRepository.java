@@ -1,13 +1,23 @@
 package com.dladeji.store.repositories;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.dladeji.store.entities.Order;
 import com.dladeji.store.entities.User;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    List<Order> findByUser(User user);
+    @EntityGraph(attributePaths = "items.product")
+    @Query("Select o from Order o where o.user = :user")
+    List<Order> getAllByUser(@Param("user") User user);
+
+    @EntityGraph(attributePaths = "items.product")
+    @Query("Select o from Order o where o.id = :orderId")
+    Optional<Order> getOrderWithItems(@Param("orderId") Long orderId);
 }
