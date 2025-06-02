@@ -35,7 +35,7 @@ public class Order {
     @Column(name = "id")
     private Long id;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST ,orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = {CascadeType.PERSIST, CascadeType.REMOVE} ,orphanRemoval = true)
     private Set<OrderItem> items = new LinkedHashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
