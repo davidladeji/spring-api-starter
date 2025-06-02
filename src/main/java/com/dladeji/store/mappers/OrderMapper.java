@@ -1,9 +1,7 @@
 package com.dladeji.store.mappers;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
-import com.dladeji.store.dtos.OrderCheckoutDto;
 import com.dladeji.store.dtos.OrderDto;
 import com.dladeji.store.dtos.OrderItemDto;
 import com.dladeji.store.dtos.ProductOrderDto;

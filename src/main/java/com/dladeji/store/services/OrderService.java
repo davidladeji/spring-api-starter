@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.dladeji.store.dtos.OrderCheckoutDto;
@@ -17,7 +16,6 @@ import com.dladeji.store.exceptions.OrderNotFoundException;
 import com.dladeji.store.exceptions.UnauthorizedUserException;
 import com.dladeji.store.mappers.OrderMapper;
 import com.dladeji.store.repositories.OrderRepository;
-import com.dladeji.store.repositories.UserRepository;
 
 import lombok.AllArgsConstructor;
 
