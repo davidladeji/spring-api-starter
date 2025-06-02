@@ -1,17 +1,11 @@
 package com.dladeji.store.services;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.dladeji.store.dtos.OrderCheckoutDto;
 import com.dladeji.store.dtos.OrderDto;
-import com.dladeji.store.entities.Order;
-import com.dladeji.store.entities.OrderStatus;
-import com.dladeji.store.exceptions.CartIsEmptyException;
 import com.dladeji.store.exceptions.OrderNotFoundException;
 import com.dladeji.store.exceptions.UnauthorizedUserException;
 import com.dladeji.store.mappers.OrderMapper;
@@ -22,28 +16,11 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class OrderService {
-    private CartService cartService;
     private OrderRepository orderRepository;
     private OrderMapper orderMapper;
     private AuthService authService;
 
-    public OrderCheckoutDto checkout(UUID cartId){
-        var cart = cartService.getCartObj(cartId);
-
-        if (cart.getItems().isEmpty())
-            throw new CartIsEmptyException();
-        var user = authService.getCurrentUser();
-
-        
-        var order = Order.fromCart(cart, user);
-        orderRepository.save(order);
-        cartService.clearCart(cartId);
-
-        return new OrderCheckoutDto(order.getId());
-    }
-
     public List<OrderDto> getOrdersByUser(){
-        // Get logged in user
         var user = authService.getCurrentUser();
 
         var orders = orderRepository.findByUser(user);
