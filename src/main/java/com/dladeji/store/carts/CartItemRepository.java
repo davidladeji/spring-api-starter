@@ -1,8 +1,6 @@
-package com.dladeji.store.repositories;
+package com.dladeji.store.carts;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.dladeji.store.entities.CartItem;
 
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 }

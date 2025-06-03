@@ -1,11 +1,9 @@
-package com.dladeji.store.dtos;
+package com.dladeji.store.orders;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
-import com.dladeji.store.entities.PaymentStatus;
 
 import lombok.Data;
 

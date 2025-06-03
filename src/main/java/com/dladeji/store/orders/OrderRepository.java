@@ -1,11 +1,10 @@
-package com.dladeji.store.repositories;
+package com.dladeji.store.orders;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.dladeji.store.entities.Order;
 import com.dladeji.store.users.User;
 
 import java.util.List;

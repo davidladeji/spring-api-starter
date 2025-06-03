@@ -1,4 +1,4 @@
-package com.dladeji.store.dtos;
+package com.dladeji.store.carts;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

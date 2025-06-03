@@ -1,4 +1,4 @@
-package com.dladeji.store.services;
+package com.dladeji.store.orders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,11 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.dladeji.store.auth.AuthService;
-import com.dladeji.store.dtos.OrderDto;
-import com.dladeji.store.exceptions.OrderNotFoundException;
-import com.dladeji.store.exceptions.UnauthorizedUserException;
-import com.dladeji.store.mappers.OrderMapper;
-import com.dladeji.store.repositories.OrderRepository;
 
 import lombok.AllArgsConstructor;
 

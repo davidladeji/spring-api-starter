@@ -1,4 +1,4 @@
-package com.dladeji.store.controllers;
+package com.dladeji.store.carts;
 
 import java.util.UUID;
 
@@ -13,13 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import com.dladeji.store.dtos.AddCartItemRequest;
-import com.dladeji.store.dtos.CartDto;
-import com.dladeji.store.dtos.UpdateCartItemDto;
-import com.dladeji.store.mappers.CartMapper;
-import com.dladeji.store.repositories.CartRepository;
-import com.dladeji.store.services.CartService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

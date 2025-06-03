@@ -1,12 +1,7 @@
-package com.dladeji.store.mappers;
+package com.dladeji.store.carts;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
-import com.dladeji.store.dtos.CartDto;
-import com.dladeji.store.dtos.CartItemDto;
-import com.dladeji.store.entities.Cart;
-import com.dladeji.store.entities.CartItem;
 
 @Mapper(componentModel = "spring")
 public interface CartMapper {

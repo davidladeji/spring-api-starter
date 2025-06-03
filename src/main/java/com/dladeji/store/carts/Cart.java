@@ -1,4 +1,4 @@
-package com.dladeji.store.entities;
+package com.dladeji.store.carts;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
