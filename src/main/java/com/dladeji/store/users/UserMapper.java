@@ -1,12 +1,7 @@
-package com.dladeji.store.mappers;
+package com.dladeji.store.users;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
-
-import com.dladeji.store.dtos.RegisterUserRequest;
-import com.dladeji.store.dtos.UpdateUserRequest;
-import com.dladeji.store.dtos.UserDto;
-import com.dladeji.store.entities.User;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {

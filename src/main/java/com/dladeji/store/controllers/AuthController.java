@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dladeji.store.config.JwtConfig;
 import com.dladeji.store.dtos.JwtResponse;
-import com.dladeji.store.dtos.LoginUserDto;
-import com.dladeji.store.dtos.UserDto;
-import com.dladeji.store.mappers.UserMapper;
-import com.dladeji.store.repositories.UserRepository;
 import com.dladeji.store.services.AuthService;
 import com.dladeji.store.services.JwtService;
+import com.dladeji.store.users.LoginUserDto;
+import com.dladeji.store.users.UserDto;
+import com.dladeji.store.users.UserMapper;
+import com.dladeji.store.users.UserRepository;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,4 +1,4 @@
-package com.dladeji.store.validation;
+package com.dladeji.store.users;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

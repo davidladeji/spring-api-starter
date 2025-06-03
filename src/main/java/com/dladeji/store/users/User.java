@@ -1,4 +1,4 @@
-package com.dladeji.store.entities;
+package com.dladeji.store.users;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.dladeji.store.entities.Product;
 
 @Setter
 @Getter

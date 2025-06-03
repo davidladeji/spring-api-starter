@@ -1,6 +1,4 @@
-package com.dladeji.store.dtos;
-
-import com.dladeji.store.validation.Lowercase;
+package com.dladeji.store.users;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

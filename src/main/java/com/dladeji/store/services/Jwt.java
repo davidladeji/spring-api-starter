@@ -4,7 +4,7 @@ import java.util.Date;
 
 import javax.crypto.SecretKey;
 
-import com.dladeji.store.entities.Role;
+import com.dladeji.store.users.Role;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

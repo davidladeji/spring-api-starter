@@ -1,4 +1,4 @@
-package com.dladeji.store.dtos;
+package com.dladeji.store.users;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

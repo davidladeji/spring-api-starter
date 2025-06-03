@@ -1,4 +1,4 @@
-package com.dladeji.store.controllers;
+package com.dladeji.store.users;
 
 import java.util.Map;
 import java.util.Set;
@@ -15,14 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import com.dladeji.store.dtos.ChangePasswordRequest;
-import com.dladeji.store.dtos.RegisterUserRequest;
-import com.dladeji.store.dtos.UpdateUserRequest;
-import com.dladeji.store.dtos.UserDto;
-import com.dladeji.store.entities.Role;
-import com.dladeji.store.mappers.UserMapper;
-import com.dladeji.store.repositories.UserRepository;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

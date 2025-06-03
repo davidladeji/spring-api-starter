@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.stereotype.Service;
 
 import com.dladeji.store.config.JwtConfig;
-import com.dladeji.store.entities.User;
+import com.dladeji.store.users.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

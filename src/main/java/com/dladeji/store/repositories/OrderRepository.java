@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.dladeji.store.entities.Order;
-import com.dladeji.store.entities.User;
+import com.dladeji.store.users.User;
 
 import java.util.List;
 import java.util.Optional;

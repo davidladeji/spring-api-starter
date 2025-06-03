@@ -19,8 +19,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.dladeji.store.entities.Role;
 import com.dladeji.store.filters.JwtAuthenticationFilter;
+import com.dladeji.store.users.Role;
 
 import lombok.AllArgsConstructor;
 

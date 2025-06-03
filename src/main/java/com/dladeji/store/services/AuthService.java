@@ -3,8 +3,8 @@ package com.dladeji.store.services;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.dladeji.store.entities.User;
-import com.dladeji.store.repositories.UserRepository;
+import com.dladeji.store.users.User;
+import com.dladeji.store.users.UserRepository;
 
 import lombok.AllArgsConstructor;
 

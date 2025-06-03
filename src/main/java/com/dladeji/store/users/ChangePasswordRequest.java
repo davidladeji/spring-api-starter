@@ -1,4 +1,4 @@
-package com.dladeji.store.dtos;
+package com.dladeji.store.users;
 
 import lombok.Data;
 

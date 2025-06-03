@@ -1,4 +1,4 @@
-package com.dladeji.store.validation;
+package com.dladeji.store.users;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

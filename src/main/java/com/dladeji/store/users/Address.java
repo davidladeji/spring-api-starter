@@ -1,4 +1,4 @@
-package com.dladeji.store.entities;
+package com.dladeji.store.users;
 
 import jakarta.persistence.*;
 import lombok.*;
