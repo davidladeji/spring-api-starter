@@ -1,4 +1,4 @@
-package com.dladeji.store.controllers;
+package com.dladeji.store.auth;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dladeji.store.config.JwtConfig;
-import com.dladeji.store.dtos.JwtResponse;
-import com.dladeji.store.services.AuthService;
-import com.dladeji.store.services.JwtService;
-import com.dladeji.store.users.LoginUserDto;
 import com.dladeji.store.users.UserDto;
 import com.dladeji.store.users.UserMapper;
 import com.dladeji.store.users.UserRepository;

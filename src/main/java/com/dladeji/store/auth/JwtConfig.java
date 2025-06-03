@@ -1,4 +1,4 @@
-package com.dladeji.store.config;
+package com.dladeji.store.auth;
 
 import javax.crypto.SecretKey;
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.dladeji.store.auth.AuthService;
 import com.dladeji.store.dtos.OrderDto;
 import com.dladeji.store.exceptions.OrderNotFoundException;
 import com.dladeji.store.exceptions.UnauthorizedUserException;

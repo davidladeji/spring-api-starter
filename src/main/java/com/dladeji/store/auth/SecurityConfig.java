@@ -1,4 +1,4 @@
-package com.dladeji.store.config;
+package com.dladeji.store.auth;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.dladeji.store.filters.JwtAuthenticationFilter;
 import com.dladeji.store.users.Role;
 
 import lombok.AllArgsConstructor;

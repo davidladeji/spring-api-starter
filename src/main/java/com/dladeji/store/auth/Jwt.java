@@ -1,4 +1,4 @@
-package com.dladeji.store.services;
+package com.dladeji.store.auth;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.dladeji.store.services;
+package com.dladeji.store.auth;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
