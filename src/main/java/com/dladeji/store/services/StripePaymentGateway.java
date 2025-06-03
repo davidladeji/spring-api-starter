@@ -3,6 +3,7 @@ package com.dladeji.store.services;
 import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import com.dladeji.store.entities.Order;
 import com.dladeji.store.entities.OrderItem;
@@ -14,6 +15,7 @@ import com.stripe.param.checkout.SessionCreateParams.LineItem;
 import com.stripe.param.checkout.SessionCreateParams.LineItem.PriceData;
 import com.stripe.param.checkout.SessionCreateParams.LineItem.PriceData.ProductData;
 
+@Service
 public class StripePaymentGateway implements PaymentGateway{
     @Value("${websiteUrl}")
     private String websiteUrl;
