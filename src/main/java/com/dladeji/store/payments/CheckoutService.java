@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dladeji.store.auth.AuthService;
 import com.dladeji.store.carts.CartIsEmptyException;
 import com.dladeji.store.carts.CartService;
-import com.dladeji.store.entities.Order;
-import com.dladeji.store.repositories.OrderRepository;
+import com.dladeji.store.orders.Order;
+import com.dladeji.store.orders.OrderRepository;
 
 import lombok.RequiredArgsConstructor;
 

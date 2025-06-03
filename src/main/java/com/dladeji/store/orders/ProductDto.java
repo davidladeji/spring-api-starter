@@ -1,11 +1,11 @@
-package com.dladeji.store.dtos;
+package com.dladeji.store.orders;
 
 import java.math.BigDecimal;
 
 import lombok.Data;
 
 @Data
-public class ProductOrderDto {
+public class ProductDto {
     private Long id;
     private String name;
     private BigDecimal price;

@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.dladeji.store.carts.CartIsEmptyException;
 import com.dladeji.store.carts.CartNotFoundException;
 import com.dladeji.store.dtos.ErrorDto;
-import com.dladeji.store.exceptions.OrderNotFoundException;
-import com.dladeji.store.exceptions.UnauthorizedUserException;
+import com.dladeji.store.orders.OrderNotFoundException;
+import com.dladeji.store.orders.UnauthorizedUserException;
 import com.dladeji.store.products.ProductNotFoundException;
 
 @ControllerAdvice
