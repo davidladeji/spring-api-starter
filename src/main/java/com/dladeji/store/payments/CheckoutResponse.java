@@ -1,11 +1,11 @@
-package com.dladeji.store.dtos;
+package com.dladeji.store.payments;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class OrderCheckoutDto {
+public class CheckoutResponse {
     private Long orderId;
     private String checkoutUrl;
 }

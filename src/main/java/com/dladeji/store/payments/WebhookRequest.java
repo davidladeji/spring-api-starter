@@ -1,4 +1,4 @@
-package com.dladeji.store.services;
+package com.dladeji.store.payments;
 
 import java.util.Map;
 

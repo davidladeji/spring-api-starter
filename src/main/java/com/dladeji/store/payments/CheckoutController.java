@@ -1,4 +1,4 @@
-package com.dladeji.store.controllers;
+package com.dladeji.store.payments;
 
 import java.util.Map;
 
@@ -11,12 +11,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dladeji.store.dtos.CheckoutRequest;
 import com.dladeji.store.dtos.ErrorDto;
-import com.dladeji.store.dtos.OrderCheckoutDto;
-import com.dladeji.store.exceptions.PaymentException;
-import com.dladeji.store.services.CheckoutService;
-import com.dladeji.store.services.WebhookRequest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +23,7 @@ public class CheckoutController {
     private final CheckoutService checkoutService;
     
     @PostMapping
-    public OrderCheckoutDto checkout(
+    public CheckoutResponse checkout(
         @Valid @RequestBody CheckoutRequest request
     ){
         

@@ -1,4 +1,4 @@
-package com.dladeji.store.config;
+package com.dladeji.store.payments;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

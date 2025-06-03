@@ -1,15 +1,15 @@
-package com.dladeji.store.services;
+package com.dladeji.store.payments;
 
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dladeji.store.dtos.OrderCheckoutDto;
 import com.dladeji.store.entities.Order;
 import com.dladeji.store.exceptions.CartIsEmptyException;
-import com.dladeji.store.exceptions.PaymentException;
 import com.dladeji.store.repositories.OrderRepository;
+import com.dladeji.store.services.AuthService;
+import com.dladeji.store.services.CartService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +22,7 @@ public class CheckoutService {
     private final PaymentGateway paymentGateway;
     
     @Transactional
-    public OrderCheckoutDto checkout(UUID cartId) throws PaymentException{
+    public CheckoutResponse checkout(UUID cartId) throws PaymentException{
         var cart = cartService.getCartObj(cartId);
 
         if (cart.getItems().isEmpty())
@@ -38,7 +38,7 @@ public class CheckoutService {
             var session = paymentGateway.createCheckoutSession(order);
             cartService.clearCart(cartId);
 
-            return new OrderCheckoutDto(order.getId(), session.getCheckoutUrl());
+            return new CheckoutResponse(order.getId(), session.getCheckoutUrl());
 
         } catch (PaymentException ex){
             orderRepository.delete(order);

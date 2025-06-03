@@ -1,4 +1,4 @@
-package com.dladeji.store.services;
+package com.dladeji.store.payments;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.dladeji.store.entities.Order;
 import com.dladeji.store.entities.OrderItem;
 import com.dladeji.store.entities.PaymentStatus;
-import com.dladeji.store.exceptions.PaymentException;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Event;
