@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dladeji.store.auth.AuthService;
+import com.dladeji.store.carts.CartIsEmptyException;
+import com.dladeji.store.carts.CartService;
 import com.dladeji.store.entities.Order;
-import com.dladeji.store.exceptions.CartIsEmptyException;
 import com.dladeji.store.repositories.OrderRepository;
-import com.dladeji.store.services.CartService;
 
 import lombok.RequiredArgsConstructor;
 

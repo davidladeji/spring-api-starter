@@ -10,9 +10,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.dladeji.store.carts.CartIsEmptyException;
+import com.dladeji.store.carts.CartNotFoundException;
 import com.dladeji.store.dtos.ErrorDto;
-import com.dladeji.store.exceptions.CartIsEmptyException;
-import com.dladeji.store.exceptions.CartNotFoundException;
 import com.dladeji.store.exceptions.OrderNotFoundException;
 import com.dladeji.store.exceptions.UnauthorizedUserException;
 import com.dladeji.store.products.ProductNotFoundException;
