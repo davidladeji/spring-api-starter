@@ -1,11 +1,8 @@
-package com.dladeji.store.mappers;
+package com.dladeji.store.products;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-
-import com.dladeji.store.dtos.ProductDto;
-import com.dladeji.store.entities.Product;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {

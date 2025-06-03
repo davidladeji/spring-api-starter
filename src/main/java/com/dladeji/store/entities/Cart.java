@@ -6,6 +6,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import com.dladeji.store.products.Product;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

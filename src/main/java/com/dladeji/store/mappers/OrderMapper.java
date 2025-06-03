@@ -7,7 +7,7 @@ import com.dladeji.store.dtos.OrderItemDto;
 import com.dladeji.store.dtos.ProductOrderDto;
 import com.dladeji.store.entities.Order;
 import com.dladeji.store.entities.OrderItem;
-import com.dladeji.store.entities.Product;
+import com.dladeji.store.products.Product;
 
 @Mapper(componentModel = "spring")
 public interface OrderMapper {

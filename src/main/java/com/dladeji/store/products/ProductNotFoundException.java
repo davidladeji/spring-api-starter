@@ -1,4 +1,4 @@
-package com.dladeji.store.exceptions;
+package com.dladeji.store.products;
 
 public class ProductNotFoundException extends RuntimeException {
     

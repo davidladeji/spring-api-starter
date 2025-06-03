@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.dladeji.store.entities.Product;
+import com.dladeji.store.products.Product;
 
 @Setter
 @Getter

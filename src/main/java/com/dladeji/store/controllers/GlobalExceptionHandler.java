@@ -14,8 +14,8 @@ import com.dladeji.store.dtos.ErrorDto;
 import com.dladeji.store.exceptions.CartIsEmptyException;
 import com.dladeji.store.exceptions.CartNotFoundException;
 import com.dladeji.store.exceptions.OrderNotFoundException;
-import com.dladeji.store.exceptions.ProductNotFoundException;
 import com.dladeji.store.exceptions.UnauthorizedUserException;
+import com.dladeji.store.products.ProductNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

@@ -1,4 +1,4 @@
-package com.dladeji.store.controllers;
+package com.dladeji.store.products;
 
 import java.util.List;
 
@@ -10,12 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import com.dladeji.store.dtos.ProductDto;
-import com.dladeji.store.entities.Product;
-import com.dladeji.store.mappers.ProductMapper;
-import com.dladeji.store.repositories.CategoryRepository;
-import com.dladeji.store.repositories.ProductRepository;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

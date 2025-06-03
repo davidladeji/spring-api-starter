@@ -1,7 +1,6 @@
 package com.dladeji.store.services;
 import com.dladeji.store.repositories.CartItemRepository;
 import com.dladeji.store.repositories.CartRepository;
-import com.dladeji.store.repositories.ProductRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -13,8 +12,9 @@ import com.dladeji.store.dtos.CartDto;
 import com.dladeji.store.dtos.CartItemDto;
 import com.dladeji.store.entities.Cart;
 import com.dladeji.store.exceptions.CartNotFoundException;
-import com.dladeji.store.exceptions.ProductNotFoundException;
 import com.dladeji.store.mappers.CartMapper;
+import com.dladeji.store.products.ProductNotFoundException;
+import com.dladeji.store.products.ProductRepository;
 
 @Service
 @AllArgsConstructor

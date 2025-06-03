@@ -1,4 +1,4 @@
-package com.dladeji.store.dtos;
+package com.dladeji.store.products;
 
 import java.math.BigDecimal;
 

@@ -1,8 +1,7 @@
-package com.dladeji.store.repositories;
+package com.dladeji.store.products;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.dladeji.store.entities.Product;
 import java.util.List;
 
 
