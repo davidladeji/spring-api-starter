@@ -54,11 +54,4 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorDto> handleUserNotFoundException(){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-            new ErrorDto("User Not Found")
-        );
-    }
-
 }

@@ -16,6 +16,9 @@ import com.dladeji.store.dtos.ErrorDto;
 import com.dladeji.store.orders.OrderNotFoundException;
 import com.dladeji.store.orders.UnauthorizedUserException;
 import com.dladeji.store.products.ProductNotFoundException;
+import com.dladeji.store.users.UserAlreadyExistsException;
+import com.dladeji.store.users.UserNotFoundException;
+import com.dladeji.store.users.WrongPasswordException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -72,6 +75,27 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorDto> handleUnauthorizedUser() {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
                 new ErrorDto("User not authorized to view this order")
+            );
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleUserNotFoundException(){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+            new ErrorDto("User Not Found")
+        );
+    }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<ErrorDto> handleserAlreadyExistsException(){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+            new ErrorDto("Email is already registered.")
+        );
+    }
+
+    @ExceptionHandler(WrongPasswordException.class)
+    public ResponseEntity<ErrorDto> handleWrongPasswordException() {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                new ErrorDto("Old password provided is invalid")
             );
     }
 }
