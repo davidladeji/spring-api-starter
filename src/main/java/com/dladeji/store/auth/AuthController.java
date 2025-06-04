@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dladeji.store.common.ErrorDto;
 import com.dladeji.store.users.UserDto;
-import com.dladeji.store.users.UserNotFoundException;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
