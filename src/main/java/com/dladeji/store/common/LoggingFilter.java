@@ -1,4 +1,4 @@
-package com.dladeji.store.filters;
+package com.dladeji.store.common;
 
 import java.io.IOException;
 

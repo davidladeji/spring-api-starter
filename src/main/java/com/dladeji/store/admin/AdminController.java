@@ -1,4 +1,4 @@
-package com.dladeji.store.controllers;
+package com.dladeji.store.admin;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

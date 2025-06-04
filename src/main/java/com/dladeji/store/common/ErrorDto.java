@@ -1,4 +1,4 @@
-package com.dladeji.store.dtos;
+package com.dladeji.store.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
