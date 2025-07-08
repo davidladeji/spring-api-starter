@@ -1,19 +1,32 @@
-# The Ultimate Spring Boot Course
+# Spring Boot Production-Ready REST API
 
-This repository contains the starter project for Part 2 of my Spring Boot course:
+This project showcases a full-featured backend API built with Spring Boot, emphasizing real-world production practices like security, validation, error handling, and deployment readiness. It includes JWT-based authentication, role-based access control, and payment integration.
 
-[https://codewithmosh.com/p/spring-boot-building-apis](https://codewithmosh.com/p/spring-boot-building-apis)
+## Key Features
 
-## About this Repository 
+- Secure authentication and authorization using JWT and Spring Security  
+- Role-based access control with protected endpoints  
+- Input validation and centralized exception handling  
+- Stripe integration for payment processing  
+- Environment-specific configuration and cloud deployment practices  
+- Clean, modular architecture supporting scalability and maintainability  
 
-This project is based on the final project from Part 1 of the course, but I’ve cleaned it up and removed unnecessary playground code so we can focus on building APIs in Part 2.
+## Technologies Used
 
-You’ll be cloning this repository and coding along with me as we extend the project.
+- Java 17  
+- Spring Boot  
+- Spring Security with JWT  
+- Hibernate Validator  
+- Stripe API  
+- Maven
 
-To get started, clone the repository to your local machine:
+## Getting Started
 
-```sh
-git clone https://github.com/mosh-hamedani/spring-api-starter
+1. Clone the repository  
+2. Configure your environment variables for database, JWT secrets, and Stripe keys  
+3. Build and run the app (`mvn spring-boot:run` or equivalent)  
+4. Use Postman or similar tools to test API endpoints  
 
-cd spring-api
-```
+## Notes
+
+This project was created to apply advanced Spring Boot concepts in building scalable, secure, and maintainable REST APIs suitable for production environments.
